@@ -30,65 +30,89 @@
  */
 // 1. Interfaces de Vehicle y Engine
 interface Vehicle {
-  assemble(): void;
+  assemble(): void
 }
 
 interface Engine {
-  start(): void;
+  start(): void
 }
 
 // 2. Clases Concretas de Productos
 
-class ElectricCar {
+class ElectricCar implements Vehicle {
   // Implementación del método assemble
   // 'Ensamblando un auto eléctrico'
+  assemble(): void {
+    console.log('Ensamblando un auto eléctrico')
+  }
 }
 
-class GasCar {
+class GasCar implements Vehicle {
   // Implementación del método assemble
   // 'Ensamblando un auto de combustión'
+  assemble(): void {
+    console.log('Ensamblando un auto de combustión')
+  }
 }
 
-class ElectricEngine {
+class ElectricEngine implements Engine {
   // Implementación del método start
   // 'Arrancando motor eléctrico'
+  start(): void {
+    console.log('Arrancando motor eléctrico')
+  }
 }
 
-class GasEngine {
+class GasEngine implements Engine {
   // Implementación del método start
   // 'Arrancando motor de combustión'
+  start(): void {
+    console.log('Arrancando motor de combustión')
+  }
 }
 
 // 3. Interfaz de la Fábrica Abstracta
 
 interface VehicleFactory {
-  createVehicle(): Vehicle;
-  createEngine(): Engine;
+  createVehicle(): Vehicle
+  createEngine(): Engine
 }
 
 // 4. Clases Concretas de Fábricas
 
 class ElectricVehicleFactory implements VehicleFactory {
   // Implementación de los métodos createVehicle y createEngine
+  createVehicle(): Vehicle {
+    return new ElectricCar()
+  }
+  createEngine(): Engine {
+    return new ElectricEngine()
+  }
 }
 
 class GasVehicleFactory implements VehicleFactory {
   // Implementación de los métodos createVehicle y createEngine
+  createVehicle(): Vehicle {
+    return new GasCar()
+  }
+  createEngine(): Engine {
+    return new GasEngine()
+  }
 }
 
 // 5. Código Cliente
 
 function main(factory: VehicleFactory) {
-  const vehicle = factory.createVehicle();
-  const engine = factory.createEngine();
+  const vehicle = factory.createVehicle()
+  const engine = factory.createEngine()
 
-  vehicle.assemble();
-  engine.start();
+  vehicle.assemble()
+  engine.start()
 }
 
 // Pruebas
-console.log('Creando vehículo eléctrico:');
-main(new ElectricVehicleFactory());
+console.log('Creando vehículo eléctrico:')
+main(new ElectricVehicleFactory())
 
-console.log('\nCreando vehículo de combustión:');
-main(new GasVehicleFactory());
+console.log('\nCreando vehículo de combustión:')
+main(new GasVehicleFactory())

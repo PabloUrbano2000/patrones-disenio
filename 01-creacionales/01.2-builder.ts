@@ -11,7 +11,7 @@
  * * que lo componen.
  */
 
-import { COLORS } from '../helpers/colors.ts';
+import { COLORS } from '../helpers/colors.ts'
 
 //! Tarea: crear un QueryBuilder para construir consultas SQL
 /**
@@ -39,35 +39,58 @@ import { COLORS } from '../helpers/colors.ts';
 //! Solución
 
 class QueryBuilder {
-  private table: string;
-  private fields: string[] = [];
-  private conditions: string[] = [];
-  private orderFields: string[] = [];
-  private limitCount?: number;
+  private table: string
+  private fields: string[] = []
+  private conditions: string[] = []
+  private orderFields: string[] = []
+  private limitCount?: number
 
   constructor(table: string) {
-    this.table = table;
+    this.table = table
   }
 
   select(...fields: string[]): QueryBuilder {
-    throw new Error('Method not implemented.');
+    this.fields = fields
+    return this
+    // throw new Error('Method not implemented.')
   }
 
   where(condition: string): QueryBuilder {
-    throw new Error('Method not implemented.');
+    this.conditions.push(condition)
+    return this
+    // throw new Error('Method not implemented.')
   }
 
   orderBy(field: string, direction: 'ASC' | 'DESC' = 'ASC'): QueryBuilder {
-    throw new Error('Method not implemented.');
+    this.orderFields.push(`${field} ${direction}`)
+    return this
+    // throw new Error('Method not implemented.')
   }
 
   limit(count: number): QueryBuilder {
-    throw new Error('Method not implemented.');
+    this.limitCount = count
+    return this
+    // throw new Error('Method not implemented.')
   }
 
   execute(): string {
+    let query = `select ${
+      this.fields.length > 0 ? this.fields.join(', ') : '*'
+    } from ${this.table}`
+    if (this.conditions.length > 0) {
+      query = `${query} where ${this.conditions.join(' AND ')}`
+    }
+
+    if (this.orderFields.length > 0) {
+      query = `${query} order by ${this.orderFields.join(', ')}`
+    }
+
+    if (this.limitCount) {
+      query = `${query} limit ${this.limitCount}`
+    }
+    return query
     // Select id, name, email from users where age > 18 and country = 'Cri' order by name ASC limit 10;
-    throw new Error('Method not implemented.');
+    // throw new Error('Method not implemented.')
   }
 }
 
@@ -78,10 +101,10 @@ function main() {
     .where("country = 'Cri'") // Esto debe de hacer una condición AND
     .orderBy('name', 'ASC')
     .limit(10)
-    .execute();
+    .execute()
 
-  console.log('%cConsulta:\n', COLORS.red);
-  console.log(usersQuery);
+  console.log('%cConsulta:\n', COLORS.red)
+  console.log(usersQuery)
 }
 
-main();
+main()

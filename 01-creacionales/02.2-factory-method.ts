@@ -12,6 +12,8 @@
  * https://refactoring.guru/es/design-patterns/factory-method
  */
 
+import { COLORS } from '../helpers/colors'
+
 /**
  * 	!Descripción:
   1.	Completen las clases SalesReport e InventoryReport para implementar 
@@ -24,68 +26,68 @@
       el prompt para seleccionar el tipo de reporte.
  */
 
-import { COLORS } from '../helpers/colors.ts';
-
 // 1. Definir la interfaz Report
-interface Report {
-  generate(): void;
+interface CustomReport {
+  generate(): void
 }
 
 // 2. Clases concretas de Reportes
 // Implementar SalesReport e InventoryReport
 
-class SalesReport implements Report {
-  // TODO: implementar el método e imprimir en consola:
+class SalesReport implements CustomReport {
   // 'Generando reporte de ventas...'
+
+  generate(): void {
+    console.log('%cGenerando reporte de ventas...', COLORS.blue)
+  }
 }
 
-class InventoryReport implements Report {
-  // TODO: implementar el método e imprimir en consola:
+class InventoryReport implements CustomReport {
   // 'Generando reporte de inventario...'
+  generate(): void {
+    console.log('%cGenerando reporte de inventario...', COLORS.orange)
+  }
 }
 
 // 3. Clase Base ReportFactory con el Método Factory
 
 abstract class ReportFactory {
-  abstract createReport(): Report;
+  protected abstract createReport(): CustomReport
 
   generateReport(): void {
-    const report = this.createReport();
-    report.generate();
+    const report = this.createReport()
+    report.generate()
   }
 }
 
 // 4. Clases Concretas de Fábricas de Reportes
 
 class SalesReportFactory extends ReportFactory {
-  createReport(): Report {
-    throw new Error('Method not implemented.');
+  override createReport(): CustomReport {
+    return new SalesReport()
   }
 }
 
 class InventoryReportFactory extends ReportFactory {
-  createReport(): Report {
-    throw new Error('Method not implemented.');
+  override createReport(): CustomReport {
+    return new InventoryReport()
   }
 }
 
 // 5. Código Cliente para Probar
 
 function main() {
-  let reportFactory: ReportFactory;
+  let reportFactory: ReportFactory
 
-  const reportType = prompt(
-    '¿Qué tipo de reporte deseas? %c(sales/inventory)',
-    COLORS.red
-  );
+  const reportType = prompt('¿Qué tipo de reporte deseas? (sales/inventory)')
 
   if (reportType === 'sales') {
-    reportFactory = new SalesReportFactory();
+    reportFactory = new SalesReportFactory()
   } else {
-    reportFactory = new InventoryReportFactory();
+    reportFactory = new InventoryReportFactory()
   }
 
-  reportFactory.generateReport();
+  reportFactory.generateReport()
 }
 
-main();
+main()
