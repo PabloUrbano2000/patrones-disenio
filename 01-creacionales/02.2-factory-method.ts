@@ -12,7 +12,7 @@
  * https://refactoring.guru/es/design-patterns/factory-method
  */
 
-import { COLORS } from '../helpers/colors'
+import { COLORS } from '../helpers/colors.ts'
 
 /**
  * 	!Descripción:

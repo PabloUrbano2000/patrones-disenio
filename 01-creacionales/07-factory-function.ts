@@ -8,7 +8,7 @@
  *
  */
 
-import { COLORS } from '../helpers/colors'
+import { COLORS } from '../helpers/colors.ts'
 
 // i18n
 type Language = 'es' | 'en' | 'fr'

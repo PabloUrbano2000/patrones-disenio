@@ -8,7 +8,7 @@
  * * objeto de configuración.
  */
 
-import { COLORS } from '../helpers/colors'
+import { COLORS } from '../helpers/colors.ts'
 
 class DatabaseConnection {
   private static instance: DatabaseConnection

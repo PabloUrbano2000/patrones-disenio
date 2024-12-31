@@ -7,7 +7,7 @@
  *
  */
 
-import { COLORS } from '../helpers/colors'
+import { COLORS } from '../helpers/colors.ts'
 
 class CodeEditorState {
   readonly content: string
